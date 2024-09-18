@@ -12901,6 +12901,7 @@ html body .rounded-circle {
 
 #footer .footer-nav nav {
 	display: flex;
+	justify-content: center;
 }
 
 #footer .footer-nav nav > ul {
