@@ -102,22 +102,50 @@ function scrollToDiv(divId, offset = 0) {
   //   }
   // });
 
-  document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
-    const href = anchor.getAttribute('href');
+  // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
+  //   const href = anchor.getAttribute('href');
     
-    // Use regex to match './any_string/#'
-    if (href.match(/^\.\/.*\/#$/) || href.match(/^#/) || href.match(/^\.\/#/) || href.match(/^\.\.\/#/)) {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
+  //   // Use regex to match './any_string/#'
+  //   if (href.match(/^\.\/.*\/#$/) || href.match(/^#/) || href.match(/^\.\/#/) || href.match(/^\.\.\/#/)) {
+  //     anchor.addEventListener("click", function (e) {
+  //       e.preventDefault();
   
-        let targetSelector = this.getAttribute("href");
+  //       let targetSelector = this.getAttribute("href");
   
-        // Handle ./ prefix by removing it
-        if (targetSelector.startsWith("./")) {
-          targetSelector = targetSelector.replace(/^\.\//, "");
-        }
+  //       // Handle ./ prefix by removing it
+  //       if (targetSelector.startsWith("./")) {
+  //         targetSelector = targetSelector.replace(/^\.\//, "");
+  //       }
   
-        // Query the target element
+  //       // Query the target element
+  //       const target = document.querySelector(targetSelector);
+  
+  //       if (target) {
+  //         window.scrollTo({
+  //           top: target.offsetTop, // Adjust this value based on your header height
+  //           behavior: "smooth",
+  //         });
+  //       }
+  //     });
+  //   }
+  // });  
+  
+  document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+  
+      let targetSelector = this.getAttribute("href");
+  
+      // Handle `./` and `../` prefixes by removing them
+      if (targetSelector.startsWith("./")) {
+        targetSelector = targetSelector.replace(/^\.\//, "");
+      }
+      if (targetSelector.startsWith("../")) {
+        targetSelector = targetSelector.replace(/^\.\.\//, "");
+      }
+  
+      // Ensure the targetSelector is valid for `querySelector`
+      try {
         const target = document.querySelector(targetSelector);
   
         if (target) {
@@ -125,10 +153,14 @@ function scrollToDiv(divId, offset = 0) {
             top: target.offsetTop, // Adjust this value based on your header height
             behavior: "smooth",
           });
+        } else {
+          console.warn(`Target element not found for selector: ${targetSelector}`);
         }
-      });
-    }
-  });  
+      } catch (error) {
+        console.error(`Invalid selector: ${targetSelector}`);
+      }
+    });
+  });
   
 //New Code
 
