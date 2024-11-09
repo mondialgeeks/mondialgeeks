@@ -75,16 +75,16 @@ function scrollToDiv(divId, offset = 0) {
     });
   }
 
-  // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"]').forEach((anchor) => {
-  //   anchor.addEventListener("click", function (e) {
-  //     e.preventDefault();
-  //     const target = document.querySelector(this.getAttribute("href"));
-  //     window.scrollTo({
-  //       top: target.offsetTop, // Adjust this value based on your header height
-  //       behavior: "smooth",
-  //     });
-  //   });
-  // });
+  document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      window.scrollTo({
+        top: target.offsetTop, // Adjust this value based on your header height
+        behavior: "smooth",
+      });
+    });
+  });
 
   // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
   //   const href = anchor.getAttribute('href');
@@ -130,37 +130,37 @@ function scrollToDiv(divId, offset = 0) {
   //   }
   // });  
   
-  document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
+  // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
+  //   anchor.addEventListener("click", function (e) {
+  //     e.preventDefault();
   
-      let targetSelector = this.getAttribute("href");
+  //     let targetSelector = this.getAttribute("href");
   
-      // Handle `./` and `../` prefixes by removing them
-      if (targetSelector.startsWith("./")) {
-        targetSelector = targetSelector.replace(/^\.\//, "./index.html");
-      }
-      if (targetSelector.startsWith("../")) {
-        targetSelector = targetSelector.replace(/^\.\.\//, "../index.html");
-      }
+  //     // Handle `./` and `../` prefixes by removing them
+  //     if (targetSelector.startsWith("./")) {
+  //       targetSelector = targetSelector.replace(/^\.\//, "./index.html");
+  //     }
+  //     if (targetSelector.startsWith("../")) {
+  //       targetSelector = targetSelector.replace(/^\.\.\//, "../index.html");
+  //     }
   
-      // Ensure the targetSelector is valid for `querySelector`
-      try {
-        const target = document.querySelector(targetSelector);
+  //     // Ensure the targetSelector is valid for `querySelector`
+  //     try {
+  //       const target = document.querySelector(targetSelector);
   
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop, // Adjust this value based on your header height
-            behavior: "smooth",
-          });
-        } else {
-          console.warn(`Target element not found for selector: ${targetSelector}`);
-        }
-      } catch (error) {
-        console.error(`Invalid selector: ${targetSelector}`);
-      }
-    });
-  });
+  //       if (target) {
+  //         window.scrollTo({
+  //           top: target.offsetTop, // Adjust this value based on your header height
+  //           behavior: "smooth",
+  //         });
+  //       } else {
+  //         console.warn(`Target element not found for selector: ${targetSelector}`);
+  //       }
+  //     } catch (error) {
+  //       console.error(`Invalid selector: ${targetSelector}`);
+  //     }
+  //   });
+  // });
   
 //New Code
 
