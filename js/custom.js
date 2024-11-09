@@ -75,15 +75,32 @@ function scrollToDiv(divId, offset = 0) {
     });
   }
 
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      window.scrollTo({
-        top: target.offsetTop, // Adjust this value based on your header height
-        behavior: "smooth",
-      });
-    });
-  });
+  // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"]').forEach((anchor) => {
+  //   anchor.addEventListener("click", function (e) {
+  //     e.preventDefault();
+  //     const target = document.querySelector(this.getAttribute("href"));
+  //     window.scrollTo({
+  //       top: target.offsetTop, // Adjust this value based on your header height
+  //       behavior: "smooth",
+  //     });
+  //   });
+  // });
 
+  document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
+    const href = anchor.getAttribute('href');
+    
+    // Use regex to match './any_string/#'
+    if (href.match(/^\.\/.*\/#$/) || href.match(/^#/) || href.match(/^\.\/#/) || href.match(/^\.\.\/#/)) {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        window.scrollTo({
+          top: target.offsetTop, // Adjust this value based on your header height
+          behavior: "smooth",
+        });
+      });
+    }
+  });
+  
 //New Code
+
