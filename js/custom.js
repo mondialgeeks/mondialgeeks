@@ -138,10 +138,10 @@ function scrollToDiv(divId, offset = 0) {
   
       // Handle `./` and `../` prefixes by removing them
       if (targetSelector.startsWith("./")) {
-        targetSelector = targetSelector.replace(/^\.\//, "");
+        targetSelector = targetSelector.replace(/^\.\//, "index.html");
       }
       if (targetSelector.startsWith("../")) {
-        targetSelector = targetSelector.replace(/^\.\.\//, "");
+        targetSelector = targetSelector.replace(/^\.\.\//, "index.html");
       }
   
       // Ensure the targetSelector is valid for `querySelector`
