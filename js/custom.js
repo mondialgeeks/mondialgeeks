@@ -86,6 +86,22 @@ function scrollToDiv(divId, offset = 0) {
   //   });
   // });
 
+  // document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
+  //   const href = anchor.getAttribute('href');
+    
+  //   // Use regex to match './any_string/#'
+  //   if (href.match(/^\.\/.*\/#$/) || href.match(/^#/) || href.match(/^\.\/#/) || href.match(/^\.\.\/#/)) {
+  //     anchor.addEventListener("click", function (e) {
+  //       e.preventDefault();
+  //       const target = document.querySelector(this.getAttribute("href"));
+  //       window.scrollTo({
+  //         top: target.offsetTop, // Adjust this value based on your header height
+  //         behavior: "smooth",
+  //       });
+  //     });
+  //   }
+  // });
+
   document.querySelectorAll('a[href^="#"], a[href^="./#"], a[href^="../#"], a[href^="./"]').forEach((anchor) => {
     const href = anchor.getAttribute('href');
     
@@ -93,14 +109,26 @@ function scrollToDiv(divId, offset = 0) {
     if (href.match(/^\.\/.*\/#$/) || href.match(/^#/) || href.match(/^\.\/#/) || href.match(/^\.\.\/#/)) {
       anchor.addEventListener("click", function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute("href"));
-        window.scrollTo({
-          top: target.offsetTop, // Adjust this value based on your header height
-          behavior: "smooth",
-        });
+  
+        let targetSelector = this.getAttribute("href");
+  
+        // Handle ./ prefix by removing it
+        if (targetSelector.startsWith("./")) {
+          targetSelector = targetSelector.replace(/^\.\//, "");
+        }
+  
+        // Query the target element
+        const target = document.querySelector(targetSelector);
+  
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop, // Adjust this value based on your header height
+            behavior: "smooth",
+          });
+        }
       });
     }
-  });
+  });  
   
 //New Code
 
